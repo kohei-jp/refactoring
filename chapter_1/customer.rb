@@ -15,12 +15,9 @@ class Customer
 
     @rentals.each do |element|
 
-      # レンタルポイントの計算
-      frequent_renter_points += 1
-      # 新作 && 2日間 レンタルでボーナスポイントで加算
-      if element.movie.price_code == Movie.NEW_RELEASE && element.days_rented > 1
-        frequent_renter_points += 1
-      end
+      # 加算になるポイントを返してあげれば良い(引数いらない)
+      # 新作かどうかの情報もレシーバのインスタンスが持っている。
+      frequent_renter_points += element.frequent_renter_points
 
       # レンタルの料金の表示
       result += "\t" + element.movie.title + "\t" + element.charge.to_s + "\n"
