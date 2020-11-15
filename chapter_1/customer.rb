@@ -14,7 +14,6 @@ class Customer
     result = "Rental Record for #{@name}\n"
 
     @rentals.each do |element|
-      this_amount = amount_for(element)
 
       # レンタルポイントの計算
       frequent_renter_points += 1
@@ -24,28 +23,13 @@ class Customer
       end
 
       # レンタルの料金の表示
-      result += "\t" + element.movie.title + "\t" + this_amount.to_s + "\n"
-      total_amount += this_amount
+      result += "\t" + element.movie.title + "\t" + element.charge.to_s + "\n"
+      total_amount += element.charge
     end
 
     # フッターの行を追加
     result += "Amount owed is #{total_amount}\n"
     result += "You earned #{frequent_renter_points} frequent renter points"
     result
-  end
-
-  # 料金の計算 (メソッドの抽出)
-  def amount_for(rental)
-    result = 0
-    case rental.movie.price_code
-    when Movie::REGULAR
-      result += 2
-      result += (rental.days_rented - 2) * 1.5 if rental.days_rented > 2
-    when Movie::NEW_RELEASE
-      result += rental.days_rented * 3
-    when Movie::CHILDRENS
-      result += 1.5
-      result += (rental.days_rented - 3) * 1.5 if rental.days_rented > 3
-    end
   end
 end
