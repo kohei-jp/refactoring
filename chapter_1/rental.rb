@@ -6,7 +6,7 @@ class Rental
   end
 
   # 料金の計算
-  def amount_for
+  def charge
     result = 0
     case movie.price_code
     when Movie::REGULAR
