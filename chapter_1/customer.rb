@@ -10,10 +10,10 @@ class Customer
     @rentals << arg
   end
 
-  # 
   def amount_for(rental)
     rental.charge
   end
+
 
   def statement
     result = "Rental Record for #{@name}\n"

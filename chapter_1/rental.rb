@@ -5,24 +5,12 @@ class Rental
     @movie, @days_rented = movie, days_rented
   end
 
-  # 料金の計算
   def charge
-    result = 0
-    case movie.price_code
-    when Movie::REGULAR
-      result += 2
-      result += (days_rented - 2) * 1.5 if days_rented > 2
-    when Movie::NEW_RELEASE
-      result += days_rented * 3
-    when Movie::CHILDRENS
-      result += 1.5
-      result += (days_rented - 3) * 1.5 if days_rented > 3
-    end
+    movie.charge(days_rented)
   end
 
   # レンタルポイントの計算
   def frequent_renter_points
-    # 新作 && 期間 1日以上で 2ポイント それ以外は1ポイント(書き換え)
-    (movie.price_code == Movie.NEW_RELEASE && days_rented > 1) ? 2 : 1
+    movie.frequent_renter_points(days_rented)
   end
 end 
